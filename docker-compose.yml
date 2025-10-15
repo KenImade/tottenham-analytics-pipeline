@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:15.14-alpine3.21
+    container_name: tottenham_analytics_db
+    environment:
+      - POSTGRES_PASSWORD=analytics_password
+      - POSTGRES_USER=analytics_user
+      - POSTGRES_DB=tottenham_analytics_db
+    volumes:
+      - analytics-data:/var/lib/postgresql/data
+    networks:
+      - dagster_local_nw
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U analytics_user -d tottenham_analytics_db']
+      interval: 10s
+      timeout: 8s
+      retries: 5
+    ports:
+      - "5433:5432"
+
+volumes:
+  analytics-data:
+
+networks:
+  dagster_local_nw:
+    driver: bridge
+    name: dagster_local_nw

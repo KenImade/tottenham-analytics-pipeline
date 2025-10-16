@@ -1,5 +1,4 @@
-# Data files
-*.json
+# tmp files
 .tmp_*/
 
 # Byte-compiled / optimized / DLL files

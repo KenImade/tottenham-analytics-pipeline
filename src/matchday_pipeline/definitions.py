@@ -4,29 +4,29 @@ from matchday_pipeline.defs.assets.validation import (
     validated_events,
     validated_lineup,
 )
-from src.matchday_pipeline.defs.assets.analysis import (
+from matchday_pipeline.defs.assets.analysis import (
     player_time_on_pitch,
     calculate_match_duration,
     total_passes_per_player,
     get_goal_minutes,
     get_first_foul_in_second_half,
 )
-from src.matchday_pipeline.defs.assets.load_db import load_match_data
-from src.matchday_pipeline.defs.resources import PostgresResource
-from src.matchday_pipeline.defs.assets.sql_queries import (
+from matchday_pipeline.defs.assets.load_db import load_match_data
+from matchday_pipeline.defs.resources import PostgresResource
+from matchday_pipeline.defs.assets.sql_queries import (
     furthest_shot_from_goal,
     penalty_box_events,
     longest_shot_gap,
 )
-from src.matchday_pipeline.defs.jobs.pipelines import full_pipeline_job
-from src.matchday_pipeline.defs.checks.asset_checks import (
+from matchday_pipeline.defs.jobs.pipelines import full_pipeline_job
+from matchday_pipeline.defs.checks.asset_checks import (
     check_first_foul_second_half,
     check_goal_minutes,
     check_match_duration_positive,
     check_pass_distribution,
     check_player_time_on_pitch,
 )
-from src.matchday_pipeline.defs.config import FootballDataConfig
+from matchday_pipeline.defs.config import FootballDataConfig
 
 defs = Definitions(
     assets=[

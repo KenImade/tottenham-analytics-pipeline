@@ -1,7 +1,7 @@
 from typing import Dict, Any, List
 from dagster import asset, AssetExecutionContext, MetadataValue
-from src.matchday_pipeline.defs.assets.ingestion import raw_lineup_data, raw_events_data
-from src.matchday_pipeline.defs.models import DataValidator
+from matchday_pipeline.defs.assets.ingestion import raw_lineup_data, raw_events_data
+from matchday_pipeline.defs.models import DataValidator
 
 
 @asset(

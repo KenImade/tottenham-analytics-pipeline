@@ -1,6 +1,6 @@
 from dagster import Definitions
-from src.matchday_pipeline.defs.assets.ingestion import raw_events_data, raw_lineup_data
-from src.matchday_pipeline.defs.assets.validation import (
+from matchday_pipeline.defs.assets.ingestion import raw_events_data, raw_lineup_data
+from matchday_pipeline.defs.assets.validation import (
     validated_events,
     validated_lineup,
 )

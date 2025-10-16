@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from dagster import asset, AssetExecutionContext, MetadataValue
-from src.matchday_pipeline.defs.config import FootballDataConfig
+from matchday_pipeline.defs.config import FootballDataConfig
 
 
 @asset(

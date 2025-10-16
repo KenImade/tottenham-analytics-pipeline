@@ -1,5 +1,5 @@
 from dagster import asset, AssetExecutionContext, MetadataValue
-from src.matchday_pipeline.defs.resources import PostgresResource
+from matchday_pipeline.defs.resources import PostgresResource
 from typing import List, Dict, Any
 
 

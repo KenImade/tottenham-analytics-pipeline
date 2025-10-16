@@ -2,7 +2,7 @@ import os
 from dagster import asset, AssetExecutionContext, MetadataValue
 from typing import List, Dict, Any
 import pandas as pd
-from src.matchday_pipeline.defs.utils import parse_timestamp_to_seconds
+from matchday_pipeline.defs.utils import parse_timestamp_to_seconds
 
 
 @asset(

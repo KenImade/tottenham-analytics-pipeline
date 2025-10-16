@@ -158,9 +158,13 @@ There are a few areas where this could evolve into something closer to a product
 
 - Using a tool like **dbt** would make SQL transformations cleaner and more maintainable.
 - Adding **data quality tests** (e.g., Great Expectations) would help validate results end-to-end.
+- Add **CI/CD pipelines** for automated testing and deployment.
+- Write **unit and integration tests** for each Dagster asset.
+- Expand **logging and monitoring** with tools like **Prometheus + Grafana** or **Dagster Cloud alerts** to track job performance, latency, and data freshness in real time.
 
 ### **Storage**
 
+- Note: discuss current architecture
 - Moving to a **medallion architecture** (bronze → silver → gold) would improve scalability.
 - Cloud storage (like S3 or GCS) could support larger datasets.
 
@@ -173,9 +177,3 @@ There are a few areas where this could evolve into something closer to a product
 
 - Add **role-based access control (RBAC)** for data access.
 - Use environment variables or a secrets manager for credentials.
-
-### **Engineering Practices**
-
-- Add **CI/CD pipelines** for automated testing and deployment.
-- Write **unit and integration tests** for each Dagster asset.
-- Expand **logging and monitoring** with tools like **Prometheus + Grafana** or **Dagster Cloud alerts** to track job performance, latency, and data freshness in real time.

@@ -30,18 +30,37 @@ Files dropped into `data/`
     ↓  
 Validated for required fields  
     ↓  
-Metrics generated using Python (Pandas)  
+Metrics generated using Python (Pandas) -> Metrics are saved to output directory
     ↓  
 Loaded into PostgreSQL  
     ↓  
-SQL used to generate other metrics
+SQL used to generate other metrics -> Metrics are saved to output directory
 ```
 
 This setup ensures the data is validated, transformed, and analyzed in a repeatable way.
 
 ---
 
+### Data Quality Approach
+
+#### Duplicate values
+
+The strategy adopted was to keep the first occurrence, and remove subsequent duplicates so as to preserve chronological order and original data integrity.
+
+#### Field Validation
+
+Each required field is validated for:
+
+- Presence: Field exists in the record.
+- Type: Correct data type (int, string, dict)
+- Structure: Nested objects have required sub-fields.
+
 ## How to Run the Project
+
+### Prerequisites
+
+- Python 3.9+
+- Docker & Docker Compose
 
 You can spin this up locally in a few simple steps.
 
@@ -76,7 +95,14 @@ docker compose -f docker-compose.yml up -d
 dg dev
 ```
 
-Then open your browser at [http://localhost:3000](http://localhost:3000) to see everything running.
+Then open your browser at [http://localhost:3000](http://localhost:3000) to accces the dagster UI.
+
+### 6. Running the Pipeline
+
+a. In the Dagster UI, navigate to the jobs tab
+b. Click on the job named `full_matchday_analysis`
+c. Click on `Materialize all`
+d. You can then check the `output` folder in the project directory for the generated metrics which are saved in `csv` format.
 
 ### 6. Shut things down
 
@@ -84,21 +110,40 @@ When you’re done, stop Dagster with `CTRL + C`,
 then bring down the database container:
 
 ```bash
-docker compose -f docker-compose.yml down
+docker compose -f docker-compose.yml down -v
 ```
 
 ---
 
 ## Tools Used
 
-Here’s what powers the project:
-
-- **Python** (Pandas, Dagster) → for data processing, validation, and orchestration  
-- **SQL / PostgreSQL** → for data storage and analytics  
-- **Docker / Docker Compose** → for local containerized setup  
-- **Dagster** → for workflow management and observability
+| Component          | Technology      | Purpose                                        |
+|--------------------|-----------------|------------------------------------------------|
+| Orchestration      | Dagster         | Workflow management, observability, lineage    |
+| Data Processing    | Pandas          | Data transformation and metrics calculation    |
+| Database           | PostgreSQL      | Structured data storage and SQL analytics      |
+| Containerization   | Docker Compose  | Local development environment                  |
+| Language           | Python 3.9+     | Core application logic                         |
+| Data Format        | JSON            | Input file format (StatsBomb schema)           |
 
 ---
+
+## Data Quality Notes
+
+### Known Data Characteristics
+
+#### Negative Index Values
+
+- Some events have negative index values in the source data.
+- Treated as warnings rather than errors.  
+- Does not affect analysis as metrics use other fields (timestamp, period, type).
+
+#### Duplicate Events
+
+- Duplicates detected and removed automatically.  
+- First occurrence retained to preserve chronological order.  
+- Full details logged in Dagster execution logs.  
+- Count tracked in asset metadata.
 
 ## Project Structure
 
@@ -150,9 +195,7 @@ There are a few areas where this could evolve into something closer to a product
 
 ### **Data Ingestion**
 
-- Currently, files are dropped into a folder manually.
-
-  In production, data would likely come through (push based system / pull based system) an **API**, so adding API ingestion (with schema/version validation) would be a natural next step.
+- Currently, files are dropped into a folder manually. In production, data ingestion would typically occur through either a push or pull based system. Implementing proper validation based on the system is a logical next step.
 
 ### **Transformation**
 
@@ -164,7 +207,6 @@ There are a few areas where this could evolve into something closer to a product
 
 ### **Storage**
 
-- Note: discuss current architecture
 - Moving to a **medallion architecture** (bronze → silver → gold) would improve scalability.
 - Cloud storage (like S3 or GCS) could support larger datasets.
 

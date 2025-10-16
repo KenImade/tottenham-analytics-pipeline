@@ -17,6 +17,7 @@ dagster-dg-cli==1.11.14
 dagster-dg-core==1.11.14
 dagster-graphql==1.11.14
 dagster-pipes==1.11.14
+dagster-postgres==0.27.14
 dagster-webserver==1.11.14
 dagster_shared==1.11.14
 docstring_parser==0.17.0
@@ -40,6 +41,7 @@ Mako==1.3.10
 Markdown==3.9
 markdown-it-py==4.0.0
 MarkupSafe==3.0.3
+-e git+https://github.com/KenImade/tottenham-analytics-pipeline.git@97b9feec4ad13b7c831ce32057aa7ee78739a111#egg=matchday_pipeline
 mdurl==0.1.2
 multidict==6.7.0
 numpy==2.3.3
@@ -49,6 +51,7 @@ pathlib_abc==0.5.1
 prompt_toolkit==3.0.52
 propcache==0.4.1
 protobuf==6.32.1
+psycopg2-binary==2.9.11
 pycparser==2.23
 pydantic==2.12.0
 pydantic_core==2.41.1
